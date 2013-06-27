@@ -1,0 +1,38 @@
+<?php
+
+/*
+Plugin Name: RWM Slider Manager
+Plugin URI: http://www.realworldmedia.com.au/
+Description: Manage your slider entries with this neat plugin. Supports images, videos, text only, and even all post types!
+Author: Real World Media
+Version: 1.0.0
+Author URI: http://www.realworldmedia.com.au/
+*/
+
+/**
+ * @package RWMs Bootstrap / Loader File
+ * @subpackage RWM Slider Manager
+ * @author Randolph
+ * @since 1.0.0
+ */
+
+define('RWMs_VERSION', '1.0.0');
+define('RWMs_DB_VERSION', '1.0.0');
+define('RWMs_DIR', trailingslashit(plugin_dir_path(__FILE__)));
+define('RWMs_URL', trailingslashit(plugin_dir_url(__FILE__)));
+define('RWMs_FILE', __FILE__);
+define('RWMs_NAME', 'RWM Slider Manager');
+define('RWMs_SINGULAR', 'RWM Slider');
+define('RWMs_SLUG', 'rwm_slider');
+define('RWMs_PREFIX', 'rwms_');
+
+require_once(RWMs_DIR . 'core/base_controller.php');
+require_once(RWMs_DIR . 'models/migration_model.php');
+require_once(RWMs_DIR . 'models/slider_model.php');
+require_once(RWMs_DIR . 'controllers/migration.php'); new RWMs_Migration;
+require_once(RWMs_DIR . 'controllers/admin_menu.php'); new RWMs_Admin_Menu;
+require_once(RWMs_DIR . 'api.php');
+
+/**
+ * @filesource ./rwm-slider.php
+ */
