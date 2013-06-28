@@ -9,12 +9,14 @@ if ( ! function_exists('rwm_sliders')) {
         
         $sliders = $rwm->slider->get_formatted_data();
         
-        $data = array();
-        foreach ($sorted_sliders as $sorted_slider) {
-            $data[] = $sliders[$sorted_slider];
+        if ($sorted_sliders) {
+            $data = array();
+            foreach ($sorted_sliders as $sorted_slider) {
+                $data[] = $sliders[$sorted_slider];
+            }
+            
+            return $data;
         }
-        
-        return $data;
     }
 }
 

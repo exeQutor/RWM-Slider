@@ -41,7 +41,7 @@ jQuery(document).ready(function($){
             $('.form-horizontal .source_image').show();
             $('.form-horizontal .source_video').hide();
         } else if (this_value == 'video') {
-            $('label[for=source]').text('Video ID');
+            $('label[for=source]').text('Video URL');
             $('.form-horizontal .source_controls').show();
             $('.form-horizontal .source_video').show();
             $('.form-horizontal .source_image').hide();
@@ -51,8 +51,14 @@ jQuery(document).ready(function($){
     });
     
     $('.form-horizontal #source').keyup(function(){
+        var regex = /(\?v=|\&v=|\/\d\/|\/embed\/|\/v\/|\.be\/)([a-zA-Z0-9\-\_]+)/;
+        var url = $(this).val();
+        var result = url.match(regex);
+        
+        console.log(result[2]);
+        
         $(this).next('iframe').remove();
-        $(this).after('<iframe width="460" height="300" style="margin-top: 20px;" src="//www.youtube.com/embed/'+$(this).val()+'" frameborder="0" allowfullscreen></iframe>');
+        $(this).after('<iframe width="460" height="300" style="margin-top: 20px;" src="//www.youtube.com/embed/'+result[2]+'" frameborder="0" allowfullscreen></iframe>');
     });
     
     $('form.edit_slider').submit(function(){

@@ -1,6 +1,7 @@
 <div class="wrap">
     <?php include 'header.php' ; ?>
     
+    <?php if ($sorted_sliders): ?>
     <table class="table">
         <thead>
             <tr>
@@ -42,5 +43,13 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <!--input type="text" id="sortable_sliders" value="<?php echo get_option(RWMs_PREFIX . 'sliders'); ?>" /-->
+    <?php else: ?>
+    <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p><strong>There are no sliders yet</strong>. Click here to create: <a href="admin.php?page=rwms_add_new" class="btn">Create</a></p>
+    </div>
+    <?php endif; ?>
+    
+    <?php // for debug purposes ?>
+    <input type="hidden" id="sortable_sliders" value="<?php echo get_option(RWMs_PREFIX . 'sliders'); ?>" />
 </div>

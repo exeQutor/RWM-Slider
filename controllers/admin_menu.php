@@ -181,7 +181,8 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                 
                 $slider_id = $this->slider->insert($_POST[RWMs_PREFIX . 'fields']);
                 $sorted_sliders = get_option(RWMs_PREFIX . 'sliders');
-                update_option(RWMs_PREFIX . 'sliders', $sorted_sliders . ',' . $slider_id);
+                $new_value = ($sorted_sliders) ? $sorted_sliders . ',' . $slider_id : $slider_id;
+                update_option(RWMs_PREFIX . 'sliders', $new_value);
             }
         }
         

@@ -54,7 +54,7 @@
                     </div>
                     
                     <div class="source_video">
-                        <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" class="input-xxlarge" style="height: 30px;" placeholder="Video ID">
+                        <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" class="input-xxlarge" style="height: 30px;" placeholder="Video URL">
                     </div>
                 </div>
             </div>

@@ -64,7 +64,7 @@
                 </div>
             </div>
             
-            <?php $source_label = ($slider->slider_type != 'text') ? ($slider->slider_type == 'image') ? 'Image' : 'Video ID' : ''; ?>
+            <?php $source_label = ($slider->slider_type != 'text') ? ($slider->slider_type == 'image') ? 'Image' : 'Video URL' : ''; ?>
             
             <div class="control-group source_controls">
                 <label class="control-label" for="source"><?php echo $source_label; ?></label>
@@ -78,7 +78,7 @@
                     </div>
                     
                     <div class="source_video">
-                        <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" value="<?php echo $slider->slider_src; ?>"class="input-xxlarge" style="height: 30px;" placeholder="Video ID">
+                        <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" value="<?php echo $slider->slider_src; ?>"class="input-xxlarge" style="height: 30px;" placeholder="Video URL">
                         <?php if ($slider->slider_type == 'video'): ?>
                         <iframe width="460" height="300" style="margin-top: 20px;" src="//www.youtube.com/embed/<?php echo $slider->slider_src; ?>" frameborder="0" allowfullscreen></iframe>
                         <?php endif; ?>
