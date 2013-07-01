@@ -35,6 +35,8 @@ jQuery(document).ready(function($){
     $('.form-horizontal #type').change(function(){
         var this_value = $(this).val();
         
+        $('.form-horizontal #source').val('');
+        
         if (this_value == 'image') {
             $('label[for=source]').text('Image');
             $('.form-horizontal .source_controls').show();

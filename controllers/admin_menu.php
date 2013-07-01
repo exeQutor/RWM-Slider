@@ -69,6 +69,28 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         }
         
         if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+            $type_array = array(
+                'image' => 'Image',
+                'video' => 'Video',
+                'text' => 'Text'
+            );
+            
+            $text_pos_array = array(
+                'left' => 'Left',
+                'right' => 'Right'
+            );
+            
+            $btn_type_array = array(
+                'text' => 'Text',
+                'square_edge' => 'Square Edge',
+                'round_edge' => 'Round Edge'
+            );
+            
+            $alert = array(
+                'type' => 'success',
+                'message' => ''
+            );
+            
             if ( ! empty($_GET['id'])) {
                 if ( ! empty($_POST) && wp_verify_nonce($_POST[RWMs_PREFIX . 'nonce'], RWMs_PREFIX . 'edit_slider')) {
                     extract($_POST[RWMs_PREFIX . 'fields']);
@@ -97,28 +119,6 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                         $this->slider->update($_POST[RWMs_PREFIX . 'fields'], $_GET['id']);
                     }
                 }
-                
-                $type_array = array(
-                    'image' => 'Image',
-                    'video' => 'Video',
-                    'text' => 'Text'
-                );
-                
-                $text_pos_array = array(
-                    'left' => 'Left',
-                    'right' => 'Right'
-                );
-                
-                $btn_type_array = array(
-                    'text' => 'Text',
-                    'square_edge' => 'Square Edge',
-                    'round_edge' => 'Round Edge'
-                );
-                
-                $alert = array(
-                    'type' => 'success',
-                    'message' => ''
-                );
                 
                 $slider = $this->slider->get_row($_GET['id']);
                 include RWMs_DIR . 'views/edit_slider_page.php';
