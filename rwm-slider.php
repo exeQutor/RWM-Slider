@@ -13,10 +13,10 @@ Author URI: http://www.realworldmedia.com.au/
  * @package RWMs Bootstrap / Loader File
  * @subpackage RWM Slider Manager
  * @author Randolph
- * @since 1.0.0
+ * @since 1.0.1
  */
 
-define('RWMs_VERSION', '1.0.0');
+define('RWMs_VERSION', '1.0.1');
 define('RWMs_DB_VERSION', '1.0.0');
 define('RWMs_DIR', trailingslashit(plugin_dir_path(__FILE__)));
 define('RWMs_URL', trailingslashit(plugin_dir_url(__FILE__)));

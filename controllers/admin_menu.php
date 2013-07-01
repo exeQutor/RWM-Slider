@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @package RWM Slider Manager
- * @subpackage RWM Framework
+ * @package RWMs Admin Menu
+ * @subpackage RWM Slider Manager
  * @author Randolph
  * @since 1.0.0
  */

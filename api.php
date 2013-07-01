@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @package RWMs API
+ * @subpackage RWM Slider Manager
+ * @author Randolph
+ * @since 1.0.0
+ */
+
 if ( ! function_exists('rwm_sliders')) {
     function rwm_sliders() {
         $rwm = RWMs_Base_Controller::get_instance();
