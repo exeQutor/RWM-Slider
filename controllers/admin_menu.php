@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package RWMs Admin Menu
+ * @package Admin Menu Controller
  * @subpackage RWM Slider Manager
  * @author Randolph
  * @since 1.0.0
@@ -13,7 +13,13 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
     function __construct() {
         parent::__construct();
         
-        if ($GLOBALS['pagenow'] == 'admin.php')
+        $rwms_pages = array(
+            RWMs_SLUG,
+            RWMs_PREFIX . 'add_new',
+            RWMs_PREFIX . 'import_export'
+        );
+        
+        if ($GLOBALS['pagenow'] == 'admin.php' && in_array($_GET['page'], $rwms_pages))
             add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
             
         add_action('admin_menu', array($this, 'admin_menu'));
@@ -49,7 +55,6 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         add_submenu_page(RWMs_SLUG, '', '', 'manage_options', RWMs_SLUG, '');
         add_submenu_page(RWMs_SLUG, RWMs_NAME, 'All Sliders', 'manage_options', RWMs_SLUG, array($this, 'all_sliders_page'));
         add_submenu_page(RWMs_SLUG, RWMs_NAME, 'Add New', 'manage_options', RWMs_PREFIX . 'add_new', array($this, 'add_new_page'));
-        add_submenu_page(RWMs_SLUG, RWMs_NAME, 'Import / Export', 'manage_options', RWMs_PREFIX . 'import_export', array($this, 'import_export_page'));
     }
     
     function all_sliders_page() {
@@ -64,6 +69,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                     }
                 }
                 
+                $this->slider->delete($_GET['id']);
                 update_option(RWMs_PREFIX . 'sliders', implode(',', $sorted_sliders));
             }
         }

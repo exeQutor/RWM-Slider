@@ -95,6 +95,23 @@ class RWMs_Slider_Model {
         return $data;
     }
     
+    function exists($slider_id) {
+        global $wpdb;
+        
+        return $wpdb->query($wpdb->prepare("SELECT COUNT(*) FROM {$this->table} WHERE slider_id = %d", $slider_id));
+    }
+    
+    function import($data) {
+        global $wpdb;
+        $wpdb->insert($this->table, $data);
+        
+        return $wpdb->insert_id;
+    }
+    
+    function delete($slider_id) {
+        global $wpdb;
+        return $wpdb->delete($this->table, array('slider_id' => $slider_id));
+    }
 }
 
 /**

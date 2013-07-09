@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package RWMs Migration Controller
+ * @package Migration Controller
  * @subpackage RWM Slider Manager
  * @author Randolph
  * @since 1.0.0

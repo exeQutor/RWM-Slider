@@ -1,21 +1,25 @@
 <?php
 
 /**
- * @package RWMs Base Controller
+ * @package Base Controller
  * @subpackage RWM Slider Manager
  * @author Randolph
  * @since 1.0.0
  */
 
 class RWMs_Base_Controller {
+    var $view;
+    var $config;
     var $migration;
     var $slider;
     
     static $instance = NULL;
     
     function __construct() {
-        $this->migration = new RWMs_Migration_Model();
-        $this->slider = new RWMs_Slider_Model();
+        $this->view = new RWMs_View;
+        $this->config = new RWMs_Config;
+        $this->migration = new RWMs_Migration_Model;
+        $this->slider = new RWMs_Slider_Model;
     }
     
     static function get_instance() {
