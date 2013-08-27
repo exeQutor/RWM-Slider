@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @package Admin Menu Controller
- * @subpackage RWM Slider Manager
+ * @package RWM Slider Manager / Admin Menu Controller
  * @author Randolph
  * @since 1.0.0
  */
@@ -16,6 +15,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         $rwms_pages = array(
             RWMs_SLUG,
             RWMs_PREFIX . 'add_new',
+            RWMs_PREFIX . 'groups',
             RWMs_PREFIX . 'import_export'
         );
         
@@ -54,7 +54,8 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         add_menu_page(RWMs_NAME, RWMs_SINGULAR, 'manage_options', RWMs_SLUG, array($this, 'all_sliders_page'), RWMs_URL . 'assets/img/admin_icon.png');
         add_submenu_page(RWMs_SLUG, '', '', 'manage_options', RWMs_SLUG, '');
         add_submenu_page(RWMs_SLUG, RWMs_NAME, 'All Sliders', 'manage_options', RWMs_SLUG, array($this, 'all_sliders_page'));
-        add_submenu_page(RWMs_SLUG, RWMs_NAME, 'Add New', 'manage_options', RWMs_PREFIX . 'add_new', array($this, 'add_new_page'));
+        add_submenu_page(RWMs_SLUG, RWMs_NAME, 'Add New Slider', 'manage_options', RWMs_PREFIX . 'add_new', array($this, 'add_new_page'));
+        add_submenu_page(RWMs_SLUG, RWMs_NAME, 'Slider Groups', 'manage_options', RWMs_PREFIX . 'groups', array($this, 'groups_page'));
     }
     
     function all_sliders_page() {
@@ -96,6 +97,8 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                 'type' => 'success',
                 'message' => ''
             );
+            
+            $group_array = $this->slider->get_groups();
             
             if ( ! empty($_GET['id'])) {
                 if ( ! empty($_POST) && wp_verify_nonce($_POST[RWMs_PREFIX . 'nonce'], RWMs_PREFIX . 'edit_slider')) {
@@ -161,8 +164,15 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
             'message' => ''
         );
         
+        $group_array = $this->slider->get_groups();
+        
         if ( ! empty($_POST) && wp_verify_nonce($_POST[RWMs_PREFIX . 'nonce'], RWMs_PREFIX . 'add_new')) {
             extract($_POST[RWMs_PREFIX . 'fields']);
+            
+            if ( ! $group) {
+                $alert['type'] = 'error';
+                $alert['message'] .= '<p>The Group field is required.</p>';
+            }
             
             if ( ! $heading) {
                 $alert['type'] = 'error';
@@ -193,6 +203,49 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         }
         
         include RWMs_DIR . 'views/add_new_page.php';
+    }
+    
+    function groups_page() {
+        $alert = array(
+            'type' => 'success',
+            'message' => ''
+        );
+        
+        if ( ! empty($_POST) && wp_verify_nonce($_POST[RWMs_PREFIX . 'nonce'], RWMs_PREFIX . 'groups')) {
+            extract($_POST[RWMs_PREFIX . 'fields']);
+            
+            if ( ! $name) {
+                $alert['type'] = 'error';
+                $alert['message'] .= '<p>The Name field is required.</p>';
+            }
+            
+            if ( ! isset($action)) {
+                if ($alert['type'] == 'success') {
+                    $alert['message'] = '<p>Slider Group created.</p>';
+                    
+                    $slider_group_id = $this->slider->create_group($_POST[RWMs_PREFIX . 'fields']);
+                }
+            }
+            else {
+                if ($alert['type'] == 'success') {
+                    $alert['message'] = '<p>Changes saved.</p>';
+                    
+                    $this->slider->update_group($_POST[RWMs_PREFIX . 'fields'], $id);
+                }
+            }
+        }
+        
+        if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+            $slider_group = $this->slider->get_group($_GET['id']);
+        }
+        
+        if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+            $this->slider->delete_group($_GET['id']);
+        }
+        
+        $slider_groups = $this->slider->get_groups();
+        
+        include RWMs_DIR . 'views/groups_page.php';
     }
     
     function import_export_page() {
@@ -231,6 +284,4 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
     }
 }
 
-/**
- * @filesource ./controllers/admin_menu.php
- */
+// ./controllers/admin_menu.php

@@ -90,7 +90,7 @@ jQuery(document).ready(function($){
         return false;
     });
     
-    $('table.table tbody').sortable({
+    $('table.table-sortable tbody').sortable({
         stop: function(e, ui) {
             var sliders = new Array();
             var i = 0;
@@ -100,18 +100,16 @@ jQuery(document).ready(function($){
                 i++;
             });
             
-            //$('#sortable_sliders').val(sliders);
-            
             $.post(ajaxurl, {
-        		action: 'rwms_sortable_change',
+                action: 'rwms_sortable_change',
                 sliders: sliders
         	}, function(response) {
-               console.log(response);
+                console.log(response);
         	});
         }
     });
     
-    $('table.table tbody').sortable().disableSelection();
+    $('table.table-sortable tbody').sortable().disableSelection();
     
     $('.btn-group .btn-danger').click(function(){
         return confirm('Are you sure?');

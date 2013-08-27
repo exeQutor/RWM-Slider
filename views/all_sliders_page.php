@@ -2,14 +2,14 @@
     <?php include 'header.php' ; ?>
     
     <?php if ($sorted_sliders): ?>
-    <table class="table">
+    <table class="table table-sortable">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Type</th>
                 <th>Heading</th>
                 <th>Subheading</th>
-                <th>Button URL</th>
+                <th>Group</th>
                 <th></th>
             </tr>
         </thead>
@@ -32,7 +32,11 @@
                 <td><span class="label<?php echo $label; ?>"><?php echo $sliders[$sorted_slider]->slider_type; ?></span></td>
                 <td><a href="admin.php?page=rwm_slider&action=edit&id=<?php echo $sliders[$sorted_slider]->slider_id; ?>"><?php echo $sliders[$sorted_slider]->slider_heading; ?></a></td>
                 <td><?php echo $sliders[$sorted_slider]->slider_subheading; ?></td>
-                <td><?php echo $sliders[$sorted_slider]->slider_btn_url; ?></td>
+                <td><?php
+                $sliders[$sorted_slider]->slider_group_id;
+                $group = $this->slider->get_group($sliders[$sorted_slider]->slider_group_id);
+                echo $group->slider_group_name;
+                ?></td>
                 <td>
                     <div class="btn-group">
                         <a href="admin.php?page=rwm_slider&action=edit&id=<?php echo $sliders[$sorted_slider]->slider_id; ?>" class="btn">Edit <i class="icon icon-edit"></i></a>

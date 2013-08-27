@@ -1,10 +1,9 @@
 <?php
 
 /**
- * @package Migration Controller
- * @subpackage RWM Slider Manager
+ * @package RWM Slider Manager / Migration Controller
  * @author Randolph
- * @since 1.0.0
+ * @since 1.0.1
  */
 
 class RWMs_Migration extends RWMs_Base_Controller {
@@ -24,9 +23,8 @@ class RWMs_Migration extends RWMs_Base_Controller {
     public function deactivate()
     {
         $this->migration->down();
+        delete_option(RWMs_PREFIX . 'sliders');
     }
 }
 
-/**
- * @filesource ./controllers/migration.php
- */
+// ./controllers/migration.php

@@ -13,6 +13,7 @@ class RWMs_Migration_Model {
     function __construct() {
         global $wpdb;
         $this->table = $wpdb->prefix . RWMs_PREFIX . 'sliders';
+        $this->table2 = $wpdb->prefix . RWMs_PREFIX . 'slider_groups';
     }
     
     function up() {
@@ -20,6 +21,7 @@ class RWMs_Migration_Model {
         
         $wpdb->query("CREATE TABLE IF NOT EXISTS {$this->table} (
             slider_id int(11) NOT NULL AUTO_INCREMENT,
+            slider_group_id int(11) NOT NULL,
             slider_type varchar(10) NOT NULL,
             slider_src varchar(255) NOT NULL,
             slider_heading varchar(255) NOT NULL,
@@ -31,12 +33,20 @@ class RWMs_Migration_Model {
             slider_btn_url varchar(255) NOT NULL,
             PRIMARY KEY (slider_id)
         );");
+        
+        $wpdb->query("CREATE TABLE IF NOT EXISTS {$this->table2} (
+            slider_group_id int(11) NOT NULL AUTO_INCREMENT,
+            slider_group_name varchar(255) NOT NULL,
+            slider_group_description text NOT NULL,
+            PRIMARY KEY (slider_group_id)
+        );");
     }
     
     function down() {
         global $wpdb;
         
         $wpdb->query("DROP TABLE IF EXISTS {$this->table}");
+        $wpdb->query("DROP TABLE IF EXISTS {$this->table2}");
     }
 }
 

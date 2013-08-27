@@ -30,6 +30,18 @@
             <legend>Update your slider message</legend>
             
             <div class="control-group">
+                <label class="control-label" for="group">Group</label>
+                <div class="controls">
+                    <select name="<?php echo RWMs_PREFIX . 'fields[group]'; ?>" id="group">
+                        <?php foreach ($group_array as $row): ?>
+                        <?php $selected = ($row->slider_group_id == $slider->slider_group_id) ? ' selected' : ''; ?>
+                        <option value="<?php echo $row->slider_group_id; ?>"<?php echo $selected; ?>><?php echo $row->slider_group_name; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="control-group">
                 <label class="control-label" for="heading">Heading</label>
                 <div class="controls">
                     <input type="text" name="<?php echo RWMs_PREFIX . 'fields[heading]'; ?>" id="heading" value="<?php echo $slider->slider_heading; ?>" class="input-xxlarge" style="height: 30px;" placeholder="Heading / Title">

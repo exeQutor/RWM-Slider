@@ -68,6 +68,7 @@ class RWMs_Import_Export extends RWMs_Base_Controller {
                             foreach ($json as $obj) {
                                 if ($this->slider->exists($obj->slider_id)) {
                                     $data = array(
+                                        'slider_group_id' => $obj->slider_group_id,
                                         'slider_type' => $obj->slider_type,
                                         'slider_src' => $obj->slider_src,
                                         'slider_heading' => $obj->slider_heading . ' (Imported ' . date('Y-m-d @ h:i:s A', time()) . ')',

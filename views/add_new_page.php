@@ -12,6 +12,27 @@
             <legend>Create your slider message</legend>
             
             <div class="control-group">
+                <label class="control-label" for="group">Group</label>
+                <div class="controls">
+                    <?php if (count($group_array)): ?>
+                    <?php $disabled = ''; ?>
+                    <select name="<?php echo RWMs_PREFIX . 'fields[group]'; ?>" id="group">
+                    <option value="0">&mdash; Please select &mdash;</option>
+                    <?php foreach ($group_array as $row): ?>
+                        <option value="<?php echo $row->slider_group_id; ?>"><?php echo $row->slider_group_name; ?></option>
+                    <?php endforeach; ?>
+                    </select>
+                    <?php else: ?>
+                    <?php $disabled = ' disabled="true"'; ?>
+                    <div class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <p><strong>There are no slider groups yet</strong>. Click here to create: <a href="admin.php?page=rwms_groups" class="btn">Create</a></p>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            
+            <div class="control-group">
                 <label class="control-label" for="heading">Heading</label>
                 <div class="controls">
                     <input type="text" name="<?php echo RWMs_PREFIX . 'fields[heading]'; ?>" id="heading" class="input-xxlarge" style="height: 30px;" placeholder="Heading / Title">
@@ -105,7 +126,7 @@
             <?php endif; ?>
             
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary btn-large">Create Slider <i class="icon icon-plus-sign icon-white"></i></button>
+                <button type="submit" class="btn btn-primary btn-large"<?php echo $disabled; ?>>Create Slider <i class="icon icon-plus-sign icon-white"></i></button>
             </div>
         </fieldset>
     </form>
