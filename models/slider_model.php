@@ -29,10 +29,12 @@ class RWMs_Slider_Model {
         return $wpdb->get_row("SELECT * FROM {$this->table2} WHERE slider_group_id = $id");
     }
     
-    function get_results() {
+    function get_results($set_id = '') {
         global $wpdb;
         
-        return $wpdb->get_results("SELECT * FROM {$this->table}");
+        $where = ( ! empty($set_id)) ? ' WHERE slider_group_id = ' . $set_id : '';
+            
+        return $wpdb->get_results("SELECT * FROM {$this->table}$where");
     }
     
     function get_groups() {
@@ -127,8 +129,8 @@ class RWMs_Slider_Model {
         return $data;
     }
     
-    function get_formatted_data() {
-        $results = $this->get_results();
+    function get_formatted_data($set_id = '') {
+        $results = $this->get_results($set_id);
         
         $data = array();
         foreach ($results as $result)
