@@ -28,6 +28,7 @@ class RWMs_Migration_Model {
             slider_subheading varchar(255) NOT NULL,
             slider_text text NOT NULL,
             slider_text_pos varchar(10) NOT NULL,
+            slider_textbox_bg varchar(24) NOT NULL,
             slider_btn_type varchar(24) NOT NULL,
             slider_btn_text varchar(255) NOT NULL,
             slider_btn_url varchar(255) NOT NULL,

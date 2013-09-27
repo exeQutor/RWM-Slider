@@ -87,6 +87,12 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                 'right' => 'Right'
             );
             
+            $textbox_bg_array = array(
+                'inherit' => 'Inherit',
+                'solid' => 'Solid',
+                'transparent' => 'Transparent',
+            );
+            
             $btn_type_array = array(
                 'text' => 'Text',
                 'square_edge' => 'Square Edge',
@@ -151,6 +157,12 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         $text_pos_array = array(
             'left' => 'Left',
             'right' => 'Right'
+        );
+        
+        $textbox_bg_array = array(
+            'inherit' => 'Inherit',
+            'solid' => 'Solid',
+            'transparent' => 'Transparent',
         );
         
         $btn_type_array = array(

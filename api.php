@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @package RWMs API
- * @subpackage RWM Slider Manager
+ * @package RWM Framework\Slider Manager\API
  * @author Randolph
  * @since 1.0.0
  */
@@ -25,6 +24,21 @@ if ( ! function_exists('rwm_sliders')) {
                  */
                 $source = str_replace(site_url() . '/', '', $sliders[$sorted_slider]->slider_src);
                 $sliders[$sorted_slider]->slider_src = rwm_resize_slider_image($source);
+                
+                /**
+                 * Textbox background
+                 * If inherit, get global equivalent
+                 */
+                $textbox_bg = $sliders[$sorted_slider]->slider_textbox_bg;
+                if ($textbox_bg == 'inherit') {
+                    if (function_exists('rwm_option2')) {
+                        $textbox_bg = rwm_option2('slider_textbox_bg');
+                    } else {
+                        $textbox_bg = 'solid';
+                    }
+                    
+                    $sliders[$sorted_slider]->slider_textbox_bg = $textbox_bg;
+                }
                 
                 /**
                  * Filter sliders and format array
@@ -100,6 +114,4 @@ if ( ! function_exists('rwm_resize_slider_image')) {
     }
 }
 
-/**
- * @filesource ./api.php
- */
+// ./api.php

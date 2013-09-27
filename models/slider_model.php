@@ -62,6 +62,7 @@ class RWMs_Slider_Model {
             'slider_subheading' => esc_attr($subheading),
             'slider_text' => esc_attr($text),
             'slider_text_pos' => $text_pos,
+            'slider_textbox_bg' => $textbox_bg,
             'slider_btn_type' => $btn_type,
             'slider_btn_text' => esc_attr($btn_text),
             'slider_btn_url' => esc_url($btn_url)
@@ -104,6 +105,7 @@ class RWMs_Slider_Model {
             'slider_subheading' => esc_attr($subheading),
             'slider_text' => esc_attr($text),
             'slider_text_pos' => $text_pos,
+            'slider_textbox_bg' => $textbox_bg,
             'slider_btn_type' => $btn_type,
             'slider_btn_text' => esc_attr($btn_text),
             'slider_btn_url' => esc_url($btn_url)

@@ -5,12 +5,12 @@ Plugin Name: RWM Slider Manager
 Plugin URI: http://www.realworldmedia.com.au/
 Description: Manage your slider entries with this neat plugin. Supports images, videos, and textual slides. 
 Author: Real World Media
-Version: 1.0.3
+Version: 1.0.4
 Author URI: http://www.realworldmedia.com.au/
 */
 
-define('RWMs_VERSION', '1.0.3');
-define('RWMs_DB_VERSION', '1.0.1');
+define('RWMs_VERSION', '1.0.4');
+define('RWMs_DB_VERSION', '1.0.2');
 define('RWMs_DIR', trailingslashit(plugin_dir_path(__FILE__)));
 define('RWMs_URL', trailingslashit(plugin_dir_url(__FILE__)));
 define('RWMs_FILE', __FILE__);

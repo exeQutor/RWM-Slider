@@ -94,6 +94,17 @@
             </div>
             
             <div class="control-group">
+                <label class="control-label" for="textbox_bg">Textbox Background</label>
+                <div class="controls">
+                    <select name="<?php echo RWMs_PREFIX . 'fields[textbox_bg]'; ?>" id="textbox_bg">
+                        <?php foreach ($textbox_bg_array as $key => $value): ?>
+                        <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="control-group">
                 <label class="control-label" for="btn_type">Button Type</label>
                 <div class="controls">
                     <select name="<?php echo RWMs_PREFIX . 'fields[btn_type]'; ?>" id="btn_type">
