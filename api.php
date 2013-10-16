@@ -72,43 +72,32 @@ if ( ! function_exists('rwm_resize_slider_image')) {
         $width = $image_size['width'];
         $height = $image_size['height'];
         
-        if ($width > 900 || $height > 900) {
+        $max_img_size = ($width > 980 || $height > 980) ? 1200 : 980;
+        
+        if ($width > $max_img_size || $height > $max_img_size) {
             if ($width > $height) {
-                echo '> 900 / w > h';
-                $x = $width / 900;
+                $x = $width / $max_img_size;
                 $h = round($height / $x);
-                //$image->crop(0, 0, 900, $h, 900, $h, false);
-                $image->resize(900, $h);
-                $filename = $image->generate_filename('slider');
-                $image->save($filename);
+                $image->resize($max_img_size, $h);
             } else {
-                echo '> 900 / h > w';
-                $x = $height / 900;
+                $x = $height / $max_img_size;
                 $w = round($width / $x);
-                //$image->crop(0, 0, $w, 900, $w, 900, false);
-                $image->resize($w, 900);
-                $filename = $image->generate_filename('slider');
-                $image->save($filename);
+                $image->resize($w, $max_img_size);
             }
         } else {
             if ($width > $height) {
-                echo '< 900 / w > h';
-                $x = 900 / $width;
+                $x = $max_img_size / $width;
                 $h = round($height * $x);
-                //$image->crop(0, 0, 900, $h, 900, $h, false);
-                $image->resize(900, $h);
-                $filename = $image->generate_filename('slider');
-                $image->save($filename);
+                $image->resize($max_img_size, $h);
             } else {
-                echo '< 900 / h > w';
-                $x = 900 / $height;
+                $x = $max_img_size / $height;
                 $w = round($width * $x);
-                //$image->crop(0, 0, $w, 900, $w, 900, false);
-                $image->resize($w, 900);
-                $filename = $image->generate_filename('slider');
-                $image->save($filename);
+                $image->resize($w, $max_img_size);
             }
         }
+        
+        $filename = $image->generate_filename('slider');
+        $image->save($filename);
         
         return site_url() . '/' . str_replace(ABSPATH, '', $filename);
     }
