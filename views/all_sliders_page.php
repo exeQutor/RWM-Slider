@@ -30,8 +30,8 @@
             <tr data-slider-id="<?php echo $sliders[$sorted_slider]->slider_id; ?>">
                 <td><?php echo $sliders[$sorted_slider]->slider_id; ?></td>
                 <td><span class="label<?php echo $label; ?>"><?php echo $sliders[$sorted_slider]->slider_type; ?></span></td>
-                <td><a href="admin.php?page=rwm_slider&action=edit&id=<?php echo $sliders[$sorted_slider]->slider_id; ?>"><?php echo $sliders[$sorted_slider]->slider_heading; ?></a></td>
-                <td><?php echo $sliders[$sorted_slider]->slider_subheading; ?></td>
+                <td><a href="admin.php?page=rwm_slider&action=edit&id=<?php echo $sliders[$sorted_slider]->slider_id; ?>"><?php echo stripslashes($sliders[$sorted_slider]->slider_heading); ?></a></td>
+                <td><?php echo stripslashes($sliders[$sorted_slider]->slider_subheading); ?></td>
                 <td><?php
                 $sliders[$sorted_slider]->slider_group_id;
                 $group = $this->slider->get_group($sliders[$sorted_slider]->slider_group_id);

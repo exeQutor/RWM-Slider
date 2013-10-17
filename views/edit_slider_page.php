@@ -44,21 +44,21 @@
             <div class="control-group">
                 <label class="control-label" for="heading">Heading</label>
                 <div class="controls">
-                    <input type="text" name="<?php echo RWMs_PREFIX . 'fields[heading]'; ?>" id="heading" value="<?php echo $slider->slider_heading; ?>" class="input-xxlarge" style="height: 30px;" placeholder="Heading / Title">
+                    <input type="text" name="<?php echo RWMs_PREFIX . 'fields[heading]'; ?>" id="heading" value="<?php echo stripslashes($slider->slider_heading); ?>" class="input-xxlarge" style="height: 30px;" placeholder="Heading / Title">
                 </div>
             </div>
             
             <div class="control-group">
                 <label class="control-label" for="subheading">Subheading</label>
                 <div class="controls">
-                    <input type="text" name="<?php echo RWMs_PREFIX . 'fields[subheading]'; ?>" id="subheading" value="<?php echo $slider->slider_subheading; ?>" class="input-xxlarge" style="height: 30px;" placeholder="Subheading / Tagline">
+                    <input type="text" name="<?php echo RWMs_PREFIX . 'fields[subheading]'; ?>" id="subheading" value="<?php echo stripslashes($slider->slider_subheading); ?>" class="input-xxlarge" style="height: 30px;" placeholder="Subheading / Tagline">
                 </div>
             </div>
             
             <div class="control-group">
                 <label class="control-label" for="text">Main Text</label>
                 <div class="controls">
-                    <textarea rows="10" name="<?php echo RWMs_PREFIX . 'fields[text]'; ?>" id="text" class="input-xxlarge" placeholder="Main Text / Content"><?php echo $slider->slider_text; ?></textarea>
+                    <textarea rows="10" name="<?php echo RWMs_PREFIX . 'fields[text]'; ?>" id="text" class="input-xxlarge" placeholder="Main Text / Content"><?php echo stripslashes($slider->slider_text); ?></textarea>
                 </div>
             </div>
             
