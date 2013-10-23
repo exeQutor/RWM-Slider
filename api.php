@@ -3,21 +3,40 @@
 /**
  * @package RWM Framework\Slider Manager\API
  * @author Randolph
- * @since 1.0.0
+ * @since 1.0.1
  */
 
 if ( ! function_exists('rwm_sliders')) {
-    function rwm_sliders($set_id = '') {
+    function rwm_sliders($group_id = '') {
         $rwm = RWMs_Base_Controller::get_instance();
         
         $sorted_sliders = get_option(RWMs_PREFIX . 'sliders');
         $sorted_sliders = ( ! empty($sorted_sliders)) ? explode(',', $sorted_sliders) : '';
         
-        $sliders = $rwm->slider->get_formatted_data($set_id);
+        $sorted_sliders2 = array();
+        
+        $sliders = $rwm->slider->get_formatted_data($group_id);
+        
+        foreach ($sorted_sliders as $sorted_slider) {
+            if (array_key_exists($sorted_slider, $sliders))
+                $sorted_sliders2[] = $sorted_slider;
+        }
+        
+//        echo '<pre>';
+//		print_r($sorted_sliders2);
+//		echo '</pre>';
+//        
+//        echo '<pre>';
+//		print_r($sliders);
+//		echo '</pre>';
         
         if ($sorted_sliders) {
             $data = array();
-            foreach ($sorted_sliders as $sorted_slider) {
+            foreach ($sorted_sliders2 as $sorted_slider) {
+                
+//                echo '<pre>';
+//        		print_r($sorted_slider);
+//        		echo '</pre>';
                 
                 /**
                  * Resize slider image
@@ -43,8 +62,8 @@ if ( ! function_exists('rwm_sliders')) {
                 /**
                  * Filter sliders and format array
                  */
-                if ( ! empty($set_id)) {
-                    if ($sliders[$sorted_slider]->slider_group_id == $set_id)
+                if ( ! empty($group_id)) {
+                    if ($sliders[$sorted_slider]->slider_group_id == $group_id)
                         $data[] = $sliders[$sorted_slider];
                 } else {
                     $data[] = $sliders[$sorted_slider];

@@ -32,9 +32,10 @@
             <div class="control-group">
                 <label class="control-label" for="group">Group</label>
                 <div class="controls">
-                    <select name="<?php echo RWMs_PREFIX . 'fields[group]'; ?>" id="group">
+                    <select name="<?php echo RWMs_PREFIX . 'fields[group]'; ?>" id="group" multiple="multiple">
                         <?php foreach ($group_array as $row): ?>
-                        <?php $selected = ($row->slider_group_id == $slider->slider_group_id) ? ' selected' : ''; ?>
+                        <?php //$selected = ($row->slider_group_id == $slider->slider_group_id) ? ' selected' : ''; ?>
+                        <?php $selected = in_array($row->slider_group_id, $selected_groups) ? ' selected' : ''; ?>
                         <option value="<?php echo $row->slider_group_id; ?>"<?php echo $selected; ?>><?php echo $row->slider_group_name; ?></option>
                         <?php endforeach; ?>
                     </select>

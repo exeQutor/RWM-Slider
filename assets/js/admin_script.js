@@ -57,8 +57,6 @@ jQuery(document).ready(function($){
         var url = $(this).val();
         var result = url.match(regex);
         
-        console.log(result[2]);
-        
         $(this).next('iframe').remove();
         $(this).after('<iframe width="460" height="300" style="margin-top: 20px;" src="//www.youtube.com/embed/'+result[2]+'" frameborder="0" allowfullscreen></iframe>');
     });
@@ -67,13 +65,26 @@ jQuery(document).ready(function($){
         var form_action = $(this).prop('action');
         var submit_button = $(this).find('.form-actions button');
         var post_data = new Object();
+        var selected_children = Array();
+        var sc = 0;
         
         submit_button.addClass('disabled');
         submit_button.after(' <img src="./images/loading.gif" />');
         
         $(this).find(':input').each(function(index, element){
             if (element.name) {
-                post_data[element.name] = element.value;
+                if (element.multiple) {
+                    for (var i=0; i<element.children.length; i++) {
+                        if (element.children[i].selected) {
+                            selected_children[sc] = element.children[i].value;
+                            sc++;
+                        }
+                    }
+                    
+                    post_data[element.name] = selected_children;
+                } else {
+                    post_data[element.name] = element.value;
+                }
             }
         });
         

@@ -16,8 +16,7 @@
                 <div class="controls">
                     <?php if (count($group_array)): ?>
                     <?php $disabled = ''; ?>
-                    <select name="<?php echo RWMs_PREFIX . 'fields[group]'; ?>" id="group">
-                    <option value="0">&mdash; Please select &mdash;</option>
+                    <select name="<?php echo RWMs_PREFIX . 'fields[group]'; ?>" id="group" multiple="multiple">
                     <?php foreach ($group_array as $row): ?>
                         <option value="<?php echo $row->slider_group_id; ?>"><?php echo $row->slider_group_name; ?></option>
                     <?php endforeach; ?>

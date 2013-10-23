@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @package RWM Slider Manager / Admin Menu Controller
+ * @package RWM Slider Manager/Admin Menu Controller
  * @author Randolph
- * @since 1.0.0
+ * @since 1.0.1
  */
 
 class RWMs_Admin_Menu extends RWMs_Base_Controller {
@@ -104,6 +104,12 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                 'message' => ''
             );
             
+            $selected_groups = array();
+            $relationships = $this->slider->fetch_relationships($_GET['id']);
+            foreach ($relationships as $relationship) {
+                $selected_groups[] = $relationship->slider_group_id;
+            }
+            
             $group_array = $this->slider->get_groups();
             
             if ( ! empty($_GET['id'])) {
@@ -132,6 +138,12 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                         $alert['message'] = '<p>Changes saved.</p>';
                         
                         $this->slider->update($_POST[RWMs_PREFIX . 'fields'], $_GET['id']);
+                        
+                        $this->slider->delete_relationships($_GET['id']);
+                        
+                        foreach ($_POST[RWMs_PREFIX . 'fields']['group'] as $slider_group_id) {
+                            $this->slider->insert_relationship($_GET['id'], $slider_group_id);
+                        }
                     }
                 }
                 
@@ -208,6 +220,11 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                 $alert['message'] = '<p>Slider created.</p>';
                 
                 $slider_id = $this->slider->insert($_POST[RWMs_PREFIX . 'fields']);
+                
+                foreach ($_POST[RWMs_PREFIX . 'fields']['group'] as $slider_group_id) {
+                    $this->slider->insert_relationship($slider_id, $slider_group_id);
+                }
+                
                 $sorted_sliders = get_option(RWMs_PREFIX . 'sliders');
                 $new_value = ($sorted_sliders) ? $sorted_sliders . ',' . $slider_id : $slider_id;
                 update_option(RWMs_PREFIX . 'sliders', $new_value);
@@ -295,5 +312,3 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         return $data;
     }
 }
-
-// ./controllers/admin_menu.php

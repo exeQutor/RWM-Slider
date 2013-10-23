@@ -19,12 +19,10 @@ jQuery(document).ready(function($){
             $('.form-actions').before(alert_div);
             $('.alert').delay(2000).fadeOut();
             
-            //console.log(alert_div.dataset.sliderId);
-            
             if (alert_div.className.indexOf('success') != -1) {
                 setTimeout(function(){
                     window.location.href = 'admin.php?page=rwms_groups';
-                }, 3000);
+                }, 0);
             }
             
             submit_button.removeClass('disabled');
