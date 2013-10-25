@@ -53,12 +53,56 @@ jQuery(document).ready(function($){
     });
     
     $('.form-horizontal #source').keyup(function(){
-        var regex = /(\?v=|\&v=|\/\d\/|\/embed\/|\/v\/|\.be\/)([a-zA-Z0-9\-\_]+)/;
+        /*
+            VIDEO EMBED
+         */
         var url = $(this).val();
+        
+        var platforms = new Array();
+        platforms[0] = 'youtube';
+        platforms[1] = 'vimeo';
+        platforms[2] = 'facebook';
+        
+        var platform = 'unknown';
+        var regex = '';
+        var embed = '<img src="//placehold.it/460x300&text=Invalid">';
+        
+        for (var i = 0; i<platforms.length; i++) {
+            if (url.indexOf(platforms[i]) != -1)
+                platform = platforms[i];
+        }
+        
+        switch (platform) {
+            case 'youtube':
+                    console.log('youtube embed');
+                    regex = /(\?v=|\&v=|\/\d\/|\/embed\/|\/v\/|\.be\/)([a-zA-Z0-9\-\_]+)/;
+                    embed = '<iframe width="460" height="300" src="//www.youtube.com/embed/%VIDEO_ID%" frameborder="0" allowfullscreen></iframe>';
+                break;
+                
+            case 'vimeo':
+                    console.log('vimeo embed');
+                    regex = /http:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
+                    embed = '<iframe src="//player.vimeo.com/video/%VIDEO_ID%?title=0&amp;byline=0&amp;portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                break;
+                
+            case 'facebook':
+                    console.log('facebook embed');
+                    regex = /((http:\/\/(www\.facebook\.com\/photo\.php.*|www\.facebook\.com\/video\/video\.php.*|www\.facebook\.com\/.*\/posts\/.*|fb\.me\/.*))|(https:\/\/(www\.facebook\.com\/photo\.php.*|www\.facebook\.com\/video\/video\.php.*|www\.facebook\.com\/.*\/posts\/.*|fb\.me\/.*)))/i;
+                    embed = '<iframe src="http://www.facebook.com/video/embed?video_id=%VIDEO_ID%" width="770" height="578" frameborder="0"></iframe>';
+                break;
+                
+            default:
+                console.log('unknown embed');
+        }
+        
         var result = url.match(regex);
         
-        $(this).next('iframe').remove();
-        $(this).after('<iframe width="460" height="300" style="margin-top: 20px;" src="//www.youtube.com/embed/'+result[2]+'" frameborder="0" allowfullscreen></iframe>');
+        if (result) {
+            embed = embed.replace('%VIDEO_ID%', result[2]);
+        }
+        
+        $('#video_preview').remove();
+        $(this).after('<div id="video_preview" style="margin-top: 20px">'+embed+'</div>');
     });
     
     $('form.edit_slider').submit(function(){

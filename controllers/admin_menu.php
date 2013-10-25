@@ -115,7 +115,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
             if ( ! empty($_GET['id'])) {
                 if ( ! empty($_POST) && wp_verify_nonce($_POST[RWMs_PREFIX . 'nonce'], RWMs_PREFIX . 'edit_slider')) {
                     extract($_POST[RWMs_PREFIX . 'fields']);
-
+                    
                     if ( ! $heading) {
                         $alert['type'] = 'error';
                         $alert['message'] .= '<p>The Heading field is required.</p>';
@@ -155,6 +155,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
             $sorted_sliders = ( ! empty($sorted_sliders)) ? explode(',', $sorted_sliders) : '';
             
             $sliders = $this->slider->get_formatted_data();
+            
             include RWMs_DIR . 'views/all_sliders_page.php';
         }
     }

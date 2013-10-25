@@ -198,6 +198,8 @@ class RWMs_Slider_Model {
         {
             if ( ! empty($group_id) && in_array($group_id, $result->slider_group))
                 $data[$result->slider_id] = $result;
+            else
+                $data[$result->slider_id] = $result;
         }
         
 //        echo '<pre>';
