@@ -3,7 +3,7 @@
 /**
  * @package RWM Framework\Slider Manager\API
  * @author Randolph
- * @since 1.0.1
+ * @since 1.0.2
  */
 
 if ( ! function_exists('rwm_sliders')) {
@@ -22,27 +22,21 @@ if ( ! function_exists('rwm_sliders')) {
                 $sorted_sliders2[] = $sorted_slider;
         }
         
-//        echo '<pre>';
-//		print_r($sorted_sliders2);
-//		echo '</pre>';
-//        
-//        echo '<pre>';
-//		print_r($sliders);
-//		echo '</pre>';
-        
         if ($sorted_sliders) {
             $data = array();
             foreach ($sorted_sliders2 as $sorted_slider) {
                 
-//                echo '<pre>';
-//        		print_r($sorted_slider);
-//        		echo '</pre>';
-                
                 /**
-                 * Resize slider image
+                 * Start resize of slider image
                  */
                 $source = str_replace(site_url() . '/', '', $sliders[$sorted_slider]->slider_src);
-                $sliders[$sorted_slider]->slider_src = rwm_resize_slider_image($source);
+                
+                /**
+                 * Resize only if slider type is image
+                 * @since 1.0.6
+                 */
+                if ($sliders[$sorted_slider]->slider_type == 'image')
+                    $sliders[$sorted_slider]->slider_src = rwm_resize_slider_image($source);
                 
                 /**
                  * Textbox background
@@ -87,6 +81,8 @@ if ( ! function_exists('rwm_resize_slider_image')) {
     function rwm_resize_slider_image($source) {
         $image = wp_get_image_editor(ABSPATH . $source);
         
+        echo '$source='.$source;
+        
         $image_size = $image->get_size();
         $width = $image_size['width'];
         $height = $image_size['height'];
@@ -121,5 +117,3 @@ if ( ! function_exists('rwm_resize_slider_image')) {
         return site_url() . '/' . str_replace(ABSPATH, '', $filename);
     }
 }
-
-// ./api.php
