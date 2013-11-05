@@ -81,8 +81,6 @@ if ( ! function_exists('rwm_resize_slider_image')) {
     function rwm_resize_slider_image($source) {
         $image = wp_get_image_editor(ABSPATH . $source);
         
-        echo '$source='.$source;
-        
         $image_size = $image->get_size();
         $width = $image_size['width'];
         $height = $image_size['height'];
