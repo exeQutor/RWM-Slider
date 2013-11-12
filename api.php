@@ -27,6 +27,13 @@ if ( ! function_exists('rwm_sliders')) {
             foreach ($sorted_sliders2 as $sorted_slider) {
                 
                 /**
+                 * @since 1.0.7
+                 */
+                $sliders[$sorted_slider]->slider_heading = stripslashes($sliders[$sorted_slider]->slider_heading);
+                $sliders[$sorted_slider]->slider_subheading = stripslashes($sliders[$sorted_slider]->slider_subheading);
+                $sliders[$sorted_slider]->slider_text = stripslashes($sliders[$sorted_slider]->slider_text);
+                
+                /**
                  * Start resize of slider image
                  */
                 $source = str_replace(site_url() . '/', '', $sliders[$sorted_slider]->slider_src);
