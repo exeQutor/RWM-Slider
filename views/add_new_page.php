@@ -65,17 +65,18 @@
                 </div>
             </div>
             
-            <div class="control-group source_controls">
+            <div class="control-group source_image">
                 <label class="control-label" for="source">Image</label>
                 <div class="controls">
-                    <div class="source_image">
-                        <input type="hidden" name="<?php echo RWMs_PREFIX . 'fields[source_image]'; ?>">
-                        <button type="button" id="wp_media_uploader" class="btn" data-frame-title="<?php echo RWMs_SINGULAR; ?> Uploader" data-frame-button-text="Set as slider image">Choose File</button>
-                    </div>
-                    
-                    <div class="source_video">
-                        <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" class="input-xxlarge" style="height: 30px;" placeholder="Video URL">
-                    </div>
+                    <input type="hidden" name="<?php echo RWMs_PREFIX . 'fields[source_image]'; ?>">
+                    <button type="button" id="wp_media_uploader" class="btn" data-frame-title="<?php echo RWMs_SINGULAR; ?> Uploader" data-frame-button-text="Set as slider image">Choose File</button>
+                </div>
+            </div>
+
+            <div class="control-group source_video">
+                <label class="control-label" for="source">Video</label>
+                <div class="controls">
+                    <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" class="input-xxlarge" style="height: 30px;" placeholder="Video URL">
                 </div>
             </div>
             

@@ -1,0 +1,11 @@
+body {
+  font-family: "Open Sans",sans-serif;
+}
+
+ul.wp-submenu.wp-submenu-wrap {
+  margin-left: 0;
+}
+
+.source_image .thumbnail {
+  max-width: 300px;
+}

@@ -52,7 +52,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
     
     function admin_menu() {
         add_menu_page(RWMs_NAME, RWMs_SINGULAR, 'manage_options', RWMs_SLUG, array($this, 'all_sliders_page'), RWMs_URL . 'assets/img/admin_icon.png');
-        add_submenu_page(RWMs_SLUG, '', '', 'manage_options', RWMs_SLUG, '');
+        //add_submenu_page(RWMs_SLUG, '', '', 'manage_options', RWMs_SLUG, '');
         add_submenu_page(RWMs_SLUG, RWMs_NAME, 'All Sliders', 'manage_options', RWMs_SLUG, array($this, 'all_sliders_page'));
         add_submenu_page(RWMs_SLUG, RWMs_NAME, 'Add New Slider', 'manage_options', RWMs_PREFIX . 'add_new', array($this, 'add_new_page'));
         add_submenu_page(RWMs_SLUG, RWMs_NAME, 'Slider Groups', 'manage_options', RWMs_PREFIX . 'groups', array($this, 'groups_page'));
@@ -84,6 +84,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
             
             $text_pos_array = array(
                 'left' => 'Left',
+                'center' => 'Center',
                 'right' => 'Right'
             );
             
@@ -169,6 +170,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         
         $text_pos_array = array(
             'left' => 'Left',
+            'center' => 'Center',
             'right' => 'Right'
         );
         
@@ -193,7 +195,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
         
         if ( ! empty($_POST) && wp_verify_nonce($_POST[RWMs_PREFIX . 'nonce'], RWMs_PREFIX . 'add_new')) {
             extract($_POST[RWMs_PREFIX . 'fields']);
-            
+
             if ( ! $group) {
                 $alert['type'] = 'error';
                 $alert['message'] .= '<p>The Group field is required.</p>';
@@ -203,7 +205,7 @@ class RWMs_Admin_Menu extends RWMs_Base_Controller {
                 $alert['type'] = 'error';
                 $alert['message'] .= '<p>The Heading field is required.</p>';
             }
-            
+
             if ($type != 'text') {
                 if ($type == 'image' && empty($source_image)) {
                     $alert['type'] = 'error';

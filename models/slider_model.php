@@ -74,11 +74,14 @@ class RWMs_Slider_Model {
                         ? $source_image
                         : $source_video
                     : '';
+
+        $preview = ($type == 'video') ? $source_image : '';
         
         $data = array(
             //'slider_group_id' => $group,
             'slider_type' => $type,
             'slider_src' => $source,
+            'slider_preview' => $preview,
             'slider_heading' => esc_attr($heading),
             'slider_subheading' => esc_attr($subheading),
             'slider_text' => esc_attr($text),
@@ -155,11 +158,14 @@ class RWMs_Slider_Model {
                         ? $source_image
                         : $source_video
                     : '';
+
+        $preview = ($type == 'video') ? $source_image : '';
         
         $data = array(
             //'slider_group_id' => $group,
             'slider_type' => $type,
             'slider_src' => $source,
+            'slider_preview' => $preview,
             'slider_heading' => esc_attr($heading),
             'slider_subheading' => esc_attr($subheading),
             'slider_text' => esc_attr($text),

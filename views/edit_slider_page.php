@@ -3,20 +3,20 @@
 .source_video {
     display: none;
 }
-.source_image {
+/*.source_image {
     display: block;
-}
+}*/
 <?php endif; ?>
 <?php if ($slider->slider_type == 'video'): ?>
-.source_video {
+/*.source_video {
     display: block;
 }
 .source_image {
     display: none;
-}
+}*/
 <?php endif; ?>
 <?php if ($slider->slider_type == 'text'): ?>
-.source_controls {
+.source_image, .source_video {
     display: none;
 }
 <?php endif; ?>
@@ -77,27 +77,39 @@
                 </div>
             </div>
             
-            <?php $source_label = ($slider->slider_type != 'text') ? ($slider->slider_type == 'image') ? 'Image' : 'Video URL' : ''; ?>
+            <?php //$source_label = ($slider->slider_type != 'text') ? ($slider->slider_type == 'image') ? 'Image' : 'Video URL' : ''; ?>
             
-            <div class="control-group source_controls">
-                <label class="control-label" for="source"><?php echo $source_label; ?></label>
+            <div class="control-group source_image">
+                <label class="control-label" for="source">Image</label>
                 <div class="controls">
-                    <div class="source_image">
-                        <input type="hidden" name="<?php echo RWMs_PREFIX . 'fields[source_image]'; ?>" value="<?php echo $slider->slider_src; ?>">
-                        <button type="button" id="wp_media_uploader" class="btn" data-frame-title="<?php echo RWMs_SINGULAR; ?> Uploader" data-frame-button-text="Set as slider image">Choose File</button>
-                        <?php if ($slider->slider_type == 'image'): ?>
-                        <br><br><img src="<?php echo $slider->slider_src; ?>" />
-                        <?php endif; ?>
-                    </div>
-                    
-                    <div class="source_video">
-                        <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" value="<?php echo $slider->slider_src; ?>"class="input-xxlarge" style="height: 30px;" placeholder="Video URL">
-                        <?php if ($slider->slider_type == 'video'): ?>
-                        <iframe width="460" height="300" style="margin-top: 20px;" src="//www.youtube.com/embed/<?php echo $slider->slider_src; ?>" frameborder="0" allowfullscreen></iframe>
-                        <?php endif; ?>
-                    </div>
+                    <input type="hidden" name="<?php echo RWMs_PREFIX . 'fields[source_image]'; ?>" value="<?php echo $slider->slider_type == 'video' ? $slider->slider_preview : $slider->slider_src; ?>">
+                    <button type="button" id="wp_media_uploader" class="btn" data-frame-title="<?php echo RWMs_SINGULAR; ?> Uploader" data-frame-button-text="Set as slider image">Choose File</button>
+
+                    <?php if ($slider->slider_type == 'image'): ?>
+                    <br><br><img src="<?php echo $slider->slider_src; ?>" class="thumbnail" />
+                    <?php endif; ?>
+
+                    <?php if ($slider->slider_type == 'video'): ?>
+                    <br><br><img src="<?php echo $slider->slider_preview; ?>" class="thumbnail" />
+                    <?php endif; ?>
                 </div>
             </div>
+
+            <?php //if ($slider->slider_type == 'video'): ?>
+            <div class="control-group source_video">
+                <label class="control-label" for="source">Video</label>
+                <div class="controls">
+                    <input type="text" name="<?php echo RWMs_PREFIX . 'fields[source_video]'; ?>" id="source" value="<?php echo $slider->slider_type == 'video' ? $slider->slider_src : ''; ?>"class="input-xxlarge" style="height: 30px;" placeholder="Video URL">
+                    <?php
+                    if ($slider->slider_type == 'video'):
+                        $video = preg_match('/(\?v=|\&v=|\/\d\/|\/embed\/|\/v\/|\.be\/)([a-zA-Z0-9\-\_]+)/', $slider->slider_src, $matches);
+                        $video_id = $matches[2];
+                    ?>
+                    <div id="video_preview" style="margin-top: 20px"><iframe width="460" height="300" src="//www.youtube.com/embed/<?php echo $video_id; ?>" frameborder="0" allowfullscreen></iframe></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php //endif; ?>
             
             <legend>Change your style</legend>
             

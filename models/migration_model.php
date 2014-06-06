@@ -23,6 +23,7 @@ class RWMs_Migration_Model {
             slider_id int(11) NOT NULL AUTO_INCREMENT,
             slider_type varchar(10) NOT NULL,
             slider_src varchar(255) NOT NULL,
+            slider_preview varchar(255) NOT NULL,
             slider_heading varchar(255) NOT NULL,
             slider_subheading varchar(255) NOT NULL,
             slider_text text NOT NULL,

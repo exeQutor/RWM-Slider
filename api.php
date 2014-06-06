@@ -64,14 +64,18 @@ if ( ! function_exists('rwm_sliders')) {
                  * Filter sliders and format array
                  */
                 if ( ! empty($group_id)) {
-                    if ($sliders[$sorted_slider]->slider_group_id == $group_id)
+                    /**
+                     * Updated to use slider_group instead of slider_group_id (which is non-existent)
+                     * @since 1.0.8
+                     */
+                    if (in_array($group_id, $sliders[$sorted_slider]->slider_group))
                         $data[] = $sliders[$sorted_slider];
                 } else {
                     $data[] = $sliders[$sorted_slider];
                 }
             }
             
-            return $sliders;
+            return $data;
         }
     }
 }
@@ -86,39 +90,48 @@ if ( ! function_exists('rwm_slider_groups')) {
 
 if ( ! function_exists('rwm_resize_slider_image')) {
     function rwm_resize_slider_image($source) {
-        $image = wp_get_image_editor(ABSPATH . $source);
+	$imagesize = getimagesize(ABSPATH. $source);
+	if( $imagesize[0] <= 1200 ){
+		// do nothing
+		return site_url() . '/' . $source;
+	}else{
+		$image = wp_get_image_editor(ABSPATH . $source);
+
+			if( is_wp_error($image) )
+				return false;
+		
+		$image_size = $image->get_size();
+		$width = $image_size['width'];
+		$height = $image_size['height'];
+		
+		$max_img_size = ($width > 980 || $height > 980) ? 1200 : 980;
+		
+		if ($width > $max_img_size || $height > $max_img_size) {
+		    if ($width > $height) {
+			$x = $width / $max_img_size;
+			$h = round($height / $x);
+			$image->resize($max_img_size, $h);
+		    } else {
+			$x = $height / $max_img_size;
+			$w = round($width / $x);
+			$image->resize($w, $max_img_size);
+		    }
+		} else {
+		    if ($width > $height) {
+			$x = $max_img_size / $width;
+			$h = round($height * $x);
+			$image->resize($max_img_size, $h);
+		    } else {
+			$x = $max_img_size / $height;
+			$w = round($width * $x);
+			$image->resize($w, $max_img_size);
+		    }
+		}
+		
+		$filename = $image->generate_filename('slider');
+		$image->save($filename);
         
-        $image_size = $image->get_size();
-        $width = $image_size['width'];
-        $height = $image_size['height'];
-        
-        $max_img_size = ($width > 980 || $height > 980) ? 1200 : 980;
-        
-        if ($width > $max_img_size || $height > $max_img_size) {
-            if ($width > $height) {
-                $x = $width / $max_img_size;
-                $h = round($height / $x);
-                $image->resize($max_img_size, $h);
-            } else {
-                $x = $height / $max_img_size;
-                $w = round($width / $x);
-                $image->resize($w, $max_img_size);
-            }
-        } else {
-            if ($width > $height) {
-                $x = $max_img_size / $width;
-                $h = round($height * $x);
-                $image->resize($max_img_size, $h);
-            } else {
-                $x = $max_img_size / $height;
-                $w = round($width * $x);
-                $image->resize($w, $max_img_size);
-            }
-        }
-        
-        $filename = $image->generate_filename('slider');
-        $image->save($filename);
-        
-        return site_url() . '/' . str_replace(ABSPATH, '', $filename);
+		return site_url() . '/' . str_replace(ABSPATH, '', $filename);
+	}
     }
 }
